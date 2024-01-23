@@ -23,7 +23,7 @@ def add_users():
         return jsonify({"error": "User email/name already exist!"})
 
     else:
-        new_user = User(email=email, _password_hash=_password_hash, name=name)
+        new_user = User(email=email, password_hash=_password_hash, name=name)
         db.session.add(new_user)
         db.session.commit()
         return jsonify({"success": "User added successfully!"}), 201
@@ -58,32 +58,33 @@ def get_user(user_id):
     else:
         return jsonify({"error":"User not found!"}), 404
     
-# update user
+#Updating a User
 @user_bp.route("/users", methods=["PUT"])
 @jwt_required()
 def update_user():
     user = User.query.get(get_jwt_identity())
     data = request.get_json()
 
-    if user:
-        name = data['name']
-        email = data['email']
+    if not user:
+        return jsonify({"error": "User not found!"}), 404
 
-        # Check if the new values already exist for other users/ NOTE THIS
-        check_name = User.query.filter(User.id != get_jwt_identity(), User.name == name).first()
-        check_email = User.query.filter(User.id != get_jwt_identity(), User.email == email).first()
+    if "name" not in data or "email" not in data:
+        return jsonify({"error": "Invalid request payload!"}), 400
 
+    name = data['name']
+    email = data['email']
+    
+    check_name = User.query.filter(User.id != get_jwt_identity(), User.name == name).first()
+    check_email = User.query.filter(User.id != get_jwt_identity(), User.email == email).first()
 
-        if check_name or check_email:
-            return jsonify({"error": "User-email and name already exist!"})
-        else:
-            user.name = name
-            user.email = email
-        
-            db.session.commit()
-            return jsonify({"success": "User updated successfully"}), 200
-    else:
-      return jsonify({"error":"User you are trying to update doesn't exist!"}), 404
+    if check_name or check_email:
+        return jsonify({"error": "User-email and name already exist!"})
+
+    user.name = name
+    user.email = email
+    db.session.commit()
+    return jsonify({"message": "User updated successfully"}), 200
+
 
 #Deleting A User
 @user_bp.route("/users", methods=["DELETE"])
