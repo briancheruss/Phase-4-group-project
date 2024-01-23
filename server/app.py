@@ -7,7 +7,7 @@ from datetime import timedelta
 from views import *
 
 
-from models import db, User, Review, Property
+from models import db, User, Review, Property, TokenBlocklist
 
 
 app = Flask(__name__)
