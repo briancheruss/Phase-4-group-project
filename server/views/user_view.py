@@ -80,6 +80,7 @@ def update_user():
     if check_name or check_email:
         return jsonify({"error": "User-email and name already exist!"})
 
+    # Update the user
     user.name = name
     user.email = email
     db.session.commit()
