@@ -14,7 +14,6 @@ import PropertyDetails from './pages/PropertyDetails'; // Import the new compone
 function App() {
   return (
     <BrowserRouter>
-<<<<<<< HEAD
     <Routes>
 
       <Route path="/" element={<Layout />} >
@@ -23,22 +22,12 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="profile" element={<Profile />} />
         <Route path="/forgot-password" element={<PasswordForm />} />
+        <Route path="listings" element={<PropertyListings />} />
+        <Route path="listings/:id" element={<PropertyDetails />} /> {/* Add this line */}
 
       </Route>
       
     </Routes>
-=======
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="listings" element={<PropertyListings />} />
-          <Route path="listings/:id" element={<PropertyDetails />} /> {/* Add this line */}
-        </Route>
-      </Routes>
->>>>>>> main
     </BrowserRouter>
   );
 }
