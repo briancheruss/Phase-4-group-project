@@ -7,7 +7,7 @@ from flask_jwt_extended import  jwt_required, get_jwt_identity
 review_bp = Blueprint('review_bp', __name__)
 
 
-# Create an review
+# Create a review
 @review_bp.route('/reviews', methods=['POST'])
 @jwt_required()
 def create_review():
@@ -24,8 +24,8 @@ def create_review():
 
 # Get all reviews for a specific property
 @review_bp.route('/reviews/<int:review_id>', methods=['GET'])
-def get_reviews_for_property(property_id):
-    reviews = Review.query.filter_by(property_id=property_id).all()
+def get_reviews_for_property(review_id):
+    reviews = Review.query.filter_by(review_id=review_id).all()
 
     if not reviews:
         return jsonify({'message': 'No reviews found for the specified house'}), 404

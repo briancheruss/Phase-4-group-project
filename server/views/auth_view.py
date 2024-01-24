@@ -6,25 +6,20 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 auth_bp = Blueprint('auth_bp', __name__)
 
 
-# routes
-# add user
+# login route
 @auth_bp.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
     name = data['name']
     password = data['_password_hash']
     
-    user = User.query.filter_by(name = name).first()
+    user = User.query.filter_by(name=name).first()
 
-    if user:
-      if check_password_hash(user._password_hash, password):
+    if user and bcrypt.check_password_hash(user._password_hash, password):
         access_token = create_access_token(identity=user.id)
-        return jsonify(access_token = access_token)
+        return jsonify(access_token=access_token)
         
-      return jsonify({"error": "Wrong Password!"}), 401
-
-    else:
-        return jsonify({"error": "User doesn't exist!"}), 404
+    return jsonify({"error": "Wrong Password!"}), 401
 
 
 # Get logged in user

@@ -6,30 +6,33 @@ from flask_jwt_extended import  jwt_required, get_jwt_identity
 bcrypt = Bcrypt()
 user_bp =Blueprint('user_bp', __name__)
 
-# add user
+
 @user_bp.route("/users", methods=["POST"])
 def add_users():
-    data = request.get_json()
-    name = data['name']
-    email = data['email']
-    _password_hash = bcrypt.generate_password_hash(data['password'], )
+    # data = request.form
 
- 
+    name = request.form.get('name')
+    email = request.form.get('email')
+    password = request.form.get('password')
 
-    check_name = User.query.filter_by(name=name).first()
-    check_email = User.query.filter_by(email=email).first()
+    if not name or not email or not password:
+        return jsonify({"error": "Name, email, and password are required"}), 400
 
-    if check_name or check_email:
-        return jsonify({"error": "User email/name already exist!"})
+    # Check if user with the same name or email already exists
+    if User.query.filter((User.name == name) | (User.email == email)).first():
+        return jsonify({"error": "User with the same name or email already exists"}), 400
 
-    else:
-        new_user = User(email=email, password_hash=_password_hash, name=name)
-        db.session.add(new_user)
-        db.session.commit()
-        return jsonify({"success": "User added successfully!"}), 201
+    # Create and add the new user to the database
+    new_user = User(name=name, email=email, password=password)  
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({"success": "User added successfully!"}), 201
+
+
     
 # fetch all users
-@user_bp.route("/users")
+@user_bp.route("/users", methods=["GET"])
 def get_users():
     users = User.query.all()
     user_list = []
@@ -42,23 +45,20 @@ def get_users():
     return jsonify(user_list), 200
 
 # fetch single user
-@user_bp.route("/users/<int:user_id>")
+@user_bp.route("/users/<int:user_id>", methods=["GET"])
 def get_user(user_id):
     user = User.query.get(user_id)
-    user_list = []
-    
     if user:
-        user_list.append({
+        user_data = {
             'id': user.id,
             'name': user.name,
             'email': user.email
-        })
-        return jsonify(user_list), 200
-
+        }
+        return jsonify(user_data), 200
     else:
-        return jsonify({"error":"User not found!"}), 404
-    
-#Updating a User
+        return jsonify({"error": "User not found!"}), 404
+
+# Updating a User
 @user_bp.route("/users", methods=["PUT"])
 @jwt_required()
 def update_user():
@@ -73,12 +73,12 @@ def update_user():
 
     name = data['name']
     email = data['email']
-    
+
     check_name = User.query.filter(User.id != get_jwt_identity(), User.name == name).first()
     check_email = User.query.filter(User.id != get_jwt_identity(), User.email == email).first()
 
     if check_name or check_email:
-        return jsonify({"error": "User-email and name already exist!"})
+        return jsonify({"error": "User-email and name already exist!"}), 400
 
     # Update the user
     user.name = name
@@ -86,8 +86,7 @@ def update_user():
     db.session.commit()
     return jsonify({"message": "User updated successfully"}), 200
 
-
-#Deleting A User
+# Deleting A User
 @user_bp.route("/users", methods=["DELETE"])
 @jwt_required()
 def delete_user():
@@ -97,6 +96,5 @@ def delete_user():
         db.session.delete(user)
         db.session.commit()
         return jsonify({"success": "User deleted successfully"}), 200
-
     else:
-        return jsonify({"error":"User does not exist!"}), 404
+        return jsonify({"error": "User does not exist!"}), 404
