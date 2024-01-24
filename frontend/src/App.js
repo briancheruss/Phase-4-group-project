@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import PasswordForm from './pages/ForgotPassword';
 import Layout from './layout/Layout';
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="/forgot-password" element={<PasswordForm />} />
+
       </Route>
       
     </Routes>

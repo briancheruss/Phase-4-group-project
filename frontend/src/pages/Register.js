@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import { Form, Button, Card, Container, Row, Col, } from 'react-bootstrap';
+import { Link as RouterLink } from 'react-router-dom';
 import 'aos/dist/aos.css';
 import AOS from 'aos'; // Import aos library
 
@@ -87,6 +88,19 @@ const RegisterForm = () => {
           <Button variant="primary" type="submit" className="w-100 mt-3" data-aos="fade-up">
             Register
           </Button>
+          <Container className="mt-3 mb-3">
+            <Row>
+              <Col className="text-start">
+                <span style={{ fontSize: '0.9em' }}>
+                  Already have an account?{' '}
+                  <RouterLink to="/login" style={{ fontSize: '0.9em' }}>
+                    Login here
+                  </RouterLink>
+                </span>
+              </Col>
+            </Row>
+          </Container>
+
         </Form>
       </Card.Body>
     </Card>
