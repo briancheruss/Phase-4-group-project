@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button, Card, Container, Row, Col, } from 'react-bootstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import { Form, Button, Card, Container, Row, Col } from 'react-bootstrap';
 import 'aos/dist/aos.css';
 import AOS from 'aos'; // Import aos library
 import { Link as RouterLink } from 'react-router-dom';
 
-const LoginForm = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+export default function LoginForm() {
+  const { login } = useContext(UserContext);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // call your useContext function
+    login(username, password);
+
+    // Clear your form
+    setUsername('');
+    setPassword('');
   };
 
   useEffect(() => {
@@ -24,26 +28,20 @@ const LoginForm = () => {
       duration: 1500, // Set the animation duration
       easing: 'ease-in-out', // Set the animation easing
     });
-  }, []); 
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your login logic here
-    console.log('Login data:', formData);
-  };
+  }, []);
 
   return (
     <Card className="mx-auto mt-5" data-aos="fade-up" style={{ maxWidth: '400px' }}>
       <Card.Body>
         <h2 className="text-center mb-4">Login</h2>
         <Form onSubmit={handleSubmit} data-aos="fade-up">
-          <Form.Group controlId="formEmail" className="mb-3">
+          <Form.Group controlId="formUsername" className="mb-3">
             <Form.Control
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+              type="text"
+              placeholder="Username"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </Form.Group>
@@ -53,8 +51,8 @@ const LoginForm = () => {
               type="password"
               placeholder="Password"
               name="password"
-              value={formData.password}
-              onChange={handleChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </Form.Group>
@@ -67,9 +65,9 @@ const LoginForm = () => {
             <Row>
               <Col>
                 <RouterLink to="/forgot-password" style={{ fontSize: '0.9em' }}>
-                      Forgot Password?
-                </RouterLink>             
-               </Col>
+                  Forgot Password?
+                </RouterLink>
+              </Col>
               <Col className="text-end">
                 <span style={{ fontSize: '0.9em' }}>
                   Don't have an account?{' '}
@@ -84,6 +82,4 @@ const LoginForm = () => {
       </Card.Body>
     </Card>
   );
-};
-
-export default LoginForm;
+}

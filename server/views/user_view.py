@@ -10,11 +10,9 @@ user_bp =Blueprint('user_bp', __name__)
 @user_bp.route("/users", methods=["POST"])
 def add_users():
     data = request.get_json()
-    name = data['name']
+    username = data['username']
     email = data['email']
-    _password_hash = bcrypt.generate_password_hash(data['password'], )
-
- 
+    _password_hash = bcrypt.generate_password_hash(data['password'])
 
     check_name = User.query.filter_by(name=name).first()
     check_email = User.query.filter_by(email=email).first()
@@ -27,7 +25,7 @@ def add_users():
         db.session.add(new_user)
         db.session.commit()
         return jsonify({"success": "User added successfully!"}), 201
-    
+
 # fetch all users
 @user_bp.route("/users")
 def get_users():

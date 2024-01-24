@@ -1,26 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button, Card, Container, Row, Col, } from 'react-bootstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import { Form, Button, Card, Container, Row, Col } from 'react-bootstrap';
 import { Link as RouterLink } from 'react-router-dom';
 import 'aos/dist/aos.css';
 import AOS from 'aos'; // Import aos library
 
+export default function RegisterForm() {
+  const { addUser } = useContext(UserContext);
 
-
-const RegisterForm = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
-
-  useEffect(() => {
-    // Initialize aos when the component mounts
-    AOS.init({
-      duration: 1500, // Set the animation duration
-      easing: 'ease-in-out', // Set the animation easing
-    });
-  }, []); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,16 +25,35 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your registration logic here
-    console.log('Registration data:', formData);
+
+    // call your useContext function
+    addUser(formData.username, formData.email, formData.password, formData.confirmPassword);
+
+    // Clear your form
+    setFormData({
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    });
   };
+
+  useEffect(() => {
+    // Initialize aos when the component mounts
+    AOS.init({
+      duration: 1500, // Set the animation duration
+      easing: 'ease-in-out', // Set the animation easing
+    });
+  }, []);
 
   return (
     <Card className="mx-auto mt-5" data-aos="fade-up" style={{ maxWidth: '400px' }}>
       <Card.Body>
-        <h2 className="text-center mb-4"data-aos="fade-up">Register/Sign Up</h2>
+        <h2 className="text-center mb-4" data-aos="fade-up">
+          Register/Sign Up
+        </h2>
         <Form onSubmit={handleSubmit} data-aos="fade-up">
-          <Form.Group controlId="formUsername"className="mb-3">
+          <Form.Group controlId="formUsername" className="mb-3">
             <Form.Control
               type="text"
               placeholder="Username"
@@ -52,7 +64,7 @@ const RegisterForm = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formEmail"className="mb-3">
+          <Form.Group controlId="formEmail" className="mb-3">
             <Form.Control
               type="email"
               placeholder="Email"
@@ -63,7 +75,7 @@ const RegisterForm = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formPassword"className="mb-3">
+          <Form.Group controlId="formPassword" className="mb-3">
             <Form.Control
               type="password"
               placeholder="Password"
@@ -74,7 +86,7 @@ const RegisterForm = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formConfirmPassword"className="mb-3">
+          <Form.Group controlId="formConfirmPassword" className="mb-3">
             <Form.Control
               type="password"
               placeholder="Confirm Password"
@@ -100,11 +112,8 @@ const RegisterForm = () => {
               </Col>
             </Row>
           </Container>
-
         </Form>
       </Card.Body>
     </Card>
   );
-};
-
-export default RegisterForm;
+}

@@ -9,11 +9,13 @@ import PasswordForm from './pages/ForgotPassword';
 import Layout from './layout/Layout';
 import PropertyListings from './pages/PropertyListings';
 import PropertyDetails from './pages/PropertyDetails'; // Import the new component
+import UserProvider from './context/UserContext';
 
 
 function App() {
   return (
     <BrowserRouter>
+    <UserProvider>
     <Routes>
 
       <Route path="/" element={<Layout />} >
@@ -28,6 +30,7 @@ function App() {
       </Route>
       
     </Routes>
+    </UserProvider>
     </BrowserRouter>
   );
 }
