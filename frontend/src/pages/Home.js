@@ -1,6 +1,7 @@
 // Home.js
 import React,{ useEffect } from 'react';
 import { Carousel, Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import AOS from 'aos'; // Import aos library
@@ -43,64 +44,26 @@ function Home() {
               <div style={textContainerStyle} data-aos="fade-up">
                 <h1 data-aos="fade-up">Welcome to Boma Homes</h1>
                 <p>Discover your dream home with us.</p>
-                <div data-aos="fade-up" >
-                  <Button variant="primary">Get Started</Button>{' '}
-                  <Button variant="outline-light">Explore Now</Button>
-                </div>
-
-              </div>
-            </Carousel.Item>
-            {/* Add more Carousel.Items for additional slides with different images */}
-            <Carousel.Item style={carouselItemStyle}>
-              <img
-                className="d-block w-100"
-                src="https://secure.365villas.com/getimage/uploads/config/relaxinnhomes/property/gallery/71/20230114_110345jpg.jpg"
-                alt="Second slide"
-              />
-              <div style={textContainerStyle}>
-                <h1>Welcome to Boma Homes</h1>
-                <p>Discover your dream home with us.</p>
-                <div >
-                  <Button variant="primary">Get Started</Button>{' '}
-                  <Button variant="outline-light">Explore Now</Button>
+                <div data-aos="fade-up">
+                  {/* Use Link to navigate to the register page */}
+                  <Link to="/register">
+                    <Button variant="primary">Get Started</Button>
+                  </Link>
+                  {' '}
+                  {/* Use Link to navigate to the property listings page */}
+                  <Link to="/listings">
+                    <Button variant="outline-light">Explore Now</Button>
+                  </Link>
                 </div>
               </div>
             </Carousel.Item>
-            <Carousel.Item style={carouselItemStyle}>
-              <img
-                className="d-block w-100"
-                src="https://secure.365villas.com/getimage/uploads/config/relaxinnhomes/property/gallery/82/20230626_123840_3281jpg.jpg"
-                alt="Second slide"
-              />
-              <div style={textContainerStyle}>
-                <h1>Welcome to Boma Homes</h1>
-                <p>Discover your dream home with us.</p>
-                <div >
-                  <Button variant="primary">Get Started</Button>{' '}
-                  <Button variant="outline-light">Explore Now</Button>
-                </div>
-              </div>
-            </Carousel.Item>
-            <Carousel.Item style={carouselItemStyle}>
-              <img
-                className="d-block w-100"
-                src="https://secure.365villas.com/getimage/uploads/config/relaxinnhomes/property/gallery/52/20220119_113448jpg.jpg"
-                alt="Second slide"
-              />
-              <div style={textContainerStyle}>
-                <h1>Welcome to Boma Homes</h1>
-                <p>Discover your dream home with us.</p>
-                <div >
-                  <Button variant="primary">Get Started</Button>{' '}
-                  <Button variant="outline-light">Explore Now</Button>
-                </div>
-              </div>
-            </Carousel.Item>
+            {/* ... (unchanged code) */}
           </Carousel>
         </Col>
       </Row>
     </Container>
   );
 }
+
 
 export default Home;

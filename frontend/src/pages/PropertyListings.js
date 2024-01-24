@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function PropertyListings() {
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get('search');
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await fetch('/property'); // Replace with your actual backend URL
+        const response = await fetch(`/property?search=${searchQuery}`);
         const data = await response.json();
         setProperties(data);
       } catch (error) {
@@ -17,7 +19,7 @@ function PropertyListings() {
     };
 
     fetchProperties();
-  }, []);
+  }, [searchQuery]);
 
   return (
     <div>

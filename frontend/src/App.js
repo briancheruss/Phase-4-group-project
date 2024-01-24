@@ -8,37 +8,23 @@ import Login from './pages/Login';
 import PasswordForm from './pages/ForgotPassword';
 import Layout from './layout/Layout';
 import PropertyListings from './pages/PropertyListings';
-import PropertyDetails from './pages/PropertyDetails'; // Import the new component
+import PropertyDetails from './pages/PropertyDetails'; 
 
 
 function App() {
   return (
     <BrowserRouter>
-<<<<<<< HEAD
-    <Routes>
-
-      <Route path="/" element={<Layout />} >
-        <Route index element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="/forgot-password" element={<PasswordForm />} />
-
-      </Route>
-      
-    </Routes>
-=======
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="/forgot-password" element={<PasswordForm />} />
           <Route path="listings" element={<PropertyListings />} />
-          <Route path="listings/:id" element={<PropertyDetails />} /> {/* Add this line */}
+          <Route path="listings/:id" element={<PropertyDetails />} /> 
         </Route>
       </Routes>
->>>>>>> main
     </BrowserRouter>
   );
 }

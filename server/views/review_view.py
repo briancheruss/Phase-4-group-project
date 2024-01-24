@@ -23,14 +23,14 @@ def create_review():
 
 
 # Get all reviews for a specific property
-@review_bp.route('/reviews/<int:review_id>', methods=['GET'])
-def get_reviews_for_property(review_id):
-    reviews = Review.query.filter_by(review_id=review_id).all()
+@review_bp.route('/reviews/<int:property_id>', methods=['GET'])
+def get_reviews_for_property(property_id):
+    reviews = Review.query.filter_by(property_id=property_id).all()
 
     if not reviews:
-        return jsonify({'message': 'No reviews found for the specified house'}), 404
+        return jsonify({'message': 'No reviews found for the specified property'}), 404
 
-    review_list = [{'id': review.id, 'review': review.review_text,'rating': review.rating, "property_id":review.property_id,'user_id': review.user_id} for review in reviews]
+    review_list = [{'id': review.id, 'review': review.review_text, 'rating': review.rating, "property_id": review.property_id, 'user_id': review.user_id} for review in reviews]
 
     return jsonify({'reviews': review_list})
 
@@ -45,7 +45,7 @@ def update_review(review_id):
     if review:
         if review.user_id == get_jwt_identity():
             review.review_text = data['review_text']
-            review.rating=data["review.rating"]
+            review.rating = data["rating"]
             db.session.commit()
             return jsonify({'message': 'Review updated successfully'})
         
