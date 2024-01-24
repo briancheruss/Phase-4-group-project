@@ -156,8 +156,11 @@ with app.app_context():
         user = random.choice(users)
         property = random.choice(properties)
 
+        # Generate a random numerical rating
+        rating = random.randint(1, 5)
+
         review = Review(
-            rating="<AiFillStar className='ratings-star'/>",
+            rating=rating,
             review_text=random.choice(house_reviews),
             user_id=user.id,
             property_id=property.id
