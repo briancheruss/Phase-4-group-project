@@ -1,33 +1,27 @@
 import React from 'react';
-import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faTwitter, faInstagram, faGithub } from '@fortawesome/free-brands-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Footer() {
+export default function Footer() {
   return (
-    <Navbar bg="light" variant="light" className="py-3">
-      <Container>
-        <Row className="justify-content-between align-items-center">
-          <Col md={4} className="text-muted">
-            <p>© 2024 Boma Homes, Inc</p>
-          </Col>
+    <div className="container">
+      <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top ">
+        <Col md={4} className="d-flex align-items-center">
+          <a href="/" className="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+            <svg className="bi" width="30" height="24"></svg>
+          </a>
+          <span className="mb-3 mb-md-0 text-muted">© 2024 Boma Homes, Inc.</span>
+        </Col>
 
-          <Col md={4}>
-            <Nav className="justify-content-end">
-              <Nav.Item>
-                <Nav.Link href="#" className="text-muted">Twitter</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="#" className="text-muted">Instagram</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="#" className="text-muted">Facebook</Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </Col>
-        </Row>
-      </Container>
-    </Navbar>
+        <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <li className="ms-5"><a className="text-muted" href="https://github.com/briancheruss/Phase-4-group-project"><FontAwesomeIcon icon={faFacebook} /></a></li>
+          <li className="ms-3"><a className="text-muted" href="https://github.com/briancheruss/Phase-4-group-project"><FontAwesomeIcon icon={faTwitter} /></a></li>
+          <li className="ms-3"><a className="text-muted" href="https://github.com/briancheruss/Phase-4-group-project"><FontAwesomeIcon icon={faInstagram} /></a></li>
+          <li className="ms-3"><a className="text-muted" href="https://github.com/briancheruss/Phase-4-group-project"><FontAwesomeIcon icon={faGithub} /></a></li>
+        </ul>
+      </footer>
+    </div>
   );
 }
-
-export default Footer;
