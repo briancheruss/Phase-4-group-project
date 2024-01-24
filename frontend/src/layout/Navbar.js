@@ -31,6 +31,7 @@ function CustomNavbar() {
           <Nav.Link as={Link} to="/listings" className="text-light">Listings</Nav.Link>
           <Nav.Link as={Link} to="/add-property" className="text-light">Add Property</Nav.Link>
           <Nav.Link as={Link} to="/profile" className="text-light">Profile</Nav.Link>
+          <Nav.Link as={Link} to="/my-properties" className="text-light">My Properties</Nav.Link>
         </Nav>
         <Form className="d-flex me-auto align-items-center" onSubmit={handleSearch}>
           <InputGroup>

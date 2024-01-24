@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import AddProperty from './pages/AddProperty';
 import PasswordForm from './pages/ForgotPassword';
 import Layout from './layout/Layout';
 import PropertyListings from './pages/PropertyListings';
@@ -23,6 +24,7 @@ function App() {
           <Route path="/forgot-password" element={<PasswordForm />} />
           <Route path="listings" element={<PropertyListings />} />
           <Route path="listings/:id" element={<PropertyDetails />} /> 
+          <Route path="/add-property" element={<AddProperty />} />
         </Route>
       </Routes>
     </BrowserRouter>
