@@ -129,7 +129,7 @@ with app.app_context():
         user_details = User(
             name=fake.name(),
             email=fake.email(),
-            _password_hash=bcrypt.generate_password_hash(fake.word()).decode('utf-8')
+            password=bcrypt.generate_password_hash(fake.word()).decode('utf-8')
         )
         users.append(user_details)
         db.session.add(user_details)
