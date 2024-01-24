@@ -9,11 +9,11 @@ user_bp =Blueprint('user_bp', __name__)
 
 @user_bp.route("/users", methods=["POST"])
 def add_users():
-    # data = request.form
+    data = request.get_json()
 
-    name = request.form.get('name')
-    email = request.form.get('email')
-    password = request.form.get('password')
+    name = data.get('name')
+    email = data.get('email')
+    password = data.get('password')
 
     if not name or not email or not password:
         return jsonify({"error": "Name, email, and password are required"}), 400
@@ -57,7 +57,6 @@ def get_user(user_id):
         return jsonify(user_data), 200
     else:
         return jsonify({"error": "User not found!"}), 404
-
 # Updating a User
 @user_bp.route("/users", methods=["PUT"])
 @jwt_required()
@@ -71,8 +70,9 @@ def update_user():
     if "name" not in data or "email" not in data:
         return jsonify({"error": "Invalid request payload!"}), 400
 
-    name = data['name']
-    email = data['email']
+    name = data.get("name")
+    email = data.get("email")
+    password = data.get("password")
 
     check_name = User.query.filter(User.id != get_jwt_identity(), User.name == name).first()
     check_email = User.query.filter(User.id != get_jwt_identity(), User.email == email).first()
@@ -80,11 +80,16 @@ def update_user():
     if check_name or check_email:
         return jsonify({"error": "User-email and name already exist!"}), 400
 
-    # Update the user
+    # Update the user name and email
     user.name = name
     user.email = email
+
+    if password:
+        user.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+
     db.session.commit()
     return jsonify({"message": "User updated successfully"}), 200
+
 
 # Deleting A User
 @user_bp.route("/users", methods=["DELETE"])
