@@ -30,7 +30,7 @@ function Home() {
   };
 
   return (
-    <Container fluid data-aos="fade-up" className="p-0" style={{ marginTop: 0 }}>
+    <Container fluid data-aos="fade-up" className="p-0" style={{ marginTop: -16, marginLeft: -4 }}>
       <Row>
         <Col className="p-0">
           <Carousel>
