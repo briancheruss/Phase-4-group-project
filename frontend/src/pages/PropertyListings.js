@@ -31,9 +31,9 @@ function PropertyListings() {
               <Card.Img
                 variant="top"
                 src={property.image}
-                style={{ height: '200px', objectFit: 'cover' }}
+                style={{ height: '200px', width: '100%', objectFit: 'cover' }}
               />
-              <Card.Body style={{ height: '200px' }}>
+              <Card.Body>
                 <Card.Title>{property.name}</Card.Title>
                 <Card.Text>
                   <strong>Address:</strong> {property.address}

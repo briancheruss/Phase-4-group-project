@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Button, Card, Form, Col } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 function PropertyDetails() {
   const { id } = useParams();
@@ -11,8 +13,7 @@ function PropertyDetails() {
       try {
         const response = await fetch(`/property/${id}`);
         const data = await response.json();
-        console.log('Fetched property details:', data);
-  
+
         if (data && data.length > 0) {
           setProperty(data[0]);
         } else {
@@ -22,10 +23,10 @@ function PropertyDetails() {
         console.error('Error fetching property details:', error);
       }
     };
-  
+
     fetchPropertyDetails();
   }, [id]);
-  
+
   useEffect(() => {
     console.log('Property state:', property);
   }, [property]);
@@ -44,13 +45,25 @@ function PropertyDetails() {
       });
 
       if (response.ok) {
-        // If the review is successfully added, fetch the updated property details
         const updatedResponse = await fetch(`/property/${id}`);
         const updatedData = await updatedResponse.json();
         setProperty(updatedData[0]);
-        setNewReview(''); // Clear the input field
+        setNewReview('');
+
+        // Show success message
+        Swal.fire({
+          title: 'Success!',
+          text: 'Review added successfully.',
+          icon: 'success',
+        });
       } else {
         console.error('Failed to add review:', response.statusText);
+        // Show error message
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to add review.',
+          icon: 'error',
+        });
       }
     } catch (error) {
       console.error('Error adding review:', error);
@@ -67,12 +80,24 @@ function PropertyDetails() {
       });
 
       if (response.ok) {
-        // If the review is successfully deleted, fetch the updated property details
         const updatedResponse = await fetch(`/property/${id}`);
         const updatedData = await updatedResponse.json();
         setProperty(updatedData[0]);
+
+        // Show success message
+        Swal.fire({
+          title: 'Success!',
+          text: 'Review deleted successfully.',
+          icon: 'success',
+        });
       } else {
         console.error('Failed to delete review:', response.statusText);
+        // Show error message
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to delete review.',
+          icon: 'error',
+        });
       }
     } catch (error) {
       console.error('Error deleting review:', error);
@@ -80,51 +105,64 @@ function PropertyDetails() {
   };
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: '20px', margin: '20px' }}>
+    <div style={{ margin: '20px' }}>
       {property ? (
-        <div>
-          <h2>{property.name}</h2>
-          <img
-            src={property.image}
-            alt={property.name}
-            style={{ maxWidth: '100%', marginBottom: '20px', border: '1px solid #ddd' }}
-          />
-          <p>
-            <strong>Address:</strong> {property.address}
-            <br />
-            <strong>Price:</strong> ${property.price}
-            <br />
-            <strong>Description:</strong> {property.description}
-          </p>
+        <Card>
+          <Card.Body>
+            <Card.Title>{property.name}</Card.Title>
+            <Card.Img variant="top" src={property.image} alt={property.name} />
+            <Card.Text>
+              <strong>Address:</strong> {property.address}
+              <br />
+              <strong>Price:</strong> ${property.price}
+              <br />
+              <strong>Description:</strong> {property.description}
+            </Card.Text>
 
-          <h3>Reviews</h3>
-          {property.reviews.length > 0 ? (
-            <ul>
-              {property.reviews.map((review) => (
-                <li key={review.id}>
-                  <p>
-                    <strong>Review:</strong> {review.body}
-                    {' '}
-                    <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
-                  </p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No reviews available.</p>
-          )}
+            {/* Add Review Form */}
+            <div style={{ marginBottom: '20px' }}>
+              <h4>Add a Review</h4>
+              <Form>
+                <Form.Group controlId="newReview">
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={newReview}
+                    onChange={(e) => setNewReview(e.target.value)}
+                  />
+                </Form.Group>
+                <Button variant="primary" onClick={handleAddReview}>
+                  Add Review
+                </Button>
+              </Form>
+            </div>
 
-          {/* Add Review Form */}
-          <div>
-            <h4>Add a Review</h4>
-            <textarea
-              rows="3"
-              value={newReview}
-              onChange={(e) => setNewReview(e.target.value)}
-            ></textarea>
-            <button onClick={handleAddReview}>Add Review</button>
-          </div>
-        </div>
+            <Card.Title>Reviews</Card.Title>
+            {property.reviews.length > 0 ? (
+              <Col xs={12}>
+                {property.reviews.map((review) => (
+                  <Card key={review.id} style={{ marginBottom: '10px' }}>
+                    <Card.Body>
+                      <Card.Text>
+                        <strong>Review:</strong> {review.body}
+                      </Card.Text>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => handleDeleteReview(review.id)}
+                        style={{ marginLeft: '10px' }}
+                      >
+                        Delete
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                ))}
+              </Col>
+            ) : (
+              <p>No reviews available.</p>
+            )}
+          </Card.Body>
+        </Card>
       ) : (
         <p>Loading...</p>
       )}
