@@ -31,11 +31,12 @@ class User(db.Model):
             password.encode('utf-8'))
         self._password_hash = password_hash.decode('utf-8')
 
-    def __init__(self, name, email, password):
+    def __init__(self, name, email, _password_hash):
         """Constructor for the User model."""
         self.name = name
         self.email = email
-        self.password_hash = password  # Use the hybrid property setter
+        self._password_hash = _password_hash  # Use the correct attribute here
+
 
     def authenticate(self, password):
         """Check if the provided password matches the stored hash."""
@@ -45,6 +46,8 @@ class User(db.Model):
     def __repr__(self):
         """Representation of the User object."""
         return f'User {self.name}, ID {self.id}'
+
+
     
 class TokenBlocklist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
