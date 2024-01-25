@@ -31,11 +31,12 @@ class User(db.Model):
             password.encode('utf-8'))
         self._password_hash = password_hash.decode('utf-8')
 
-    def __init__(self, name, email, password):
+    def __init__(self, name, email, _password_hash):
         """Constructor for the User model."""
         self.name = name
         self.email = email
-        self.password_hash = bcrypt.generate_password_hash(password.encode('utf-8')).decode('utf-8')  # Use the correct attribute here
+        self._password_hash = _password_hash  # Use the correct attribute here
+
 
     def authenticate(self, password):
         """Check if the provided password matches the stored hash."""
@@ -67,7 +68,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     review_text = db.Column(db.String, nullable=False)
     rating = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)  # Make user_id nullable
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     property_id = db.Column(db.Integer, db.ForeignKey('property.id'), nullable=False)
 
     user = db.relationship('User', back_populates="reviews")
