@@ -14,9 +14,7 @@ def add_users():
     data = request.get_json()
     name = data['name']
     email = data['email']
-    _password_hash = bcrypt.generate_password_hash(data['password'], )
-
- 
+    password = data['password']  # Use 'password' instead of '_password_hash'
 
     check_name = User.query.filter_by(name=name).first()
     check_email = User.query.filter_by(email=email).first()
@@ -25,7 +23,8 @@ def add_users():
         return jsonify({"error": "User email/name already exist!"})
 
     else:
-        new_user = User(email=email, password_hash=_password_hash, name=name)
+        # Use the 'password' variable instead of '_password_hash'
+        new_user = User(email=email, password=password, name=name)
         db.session.add(new_user)
         db.session.commit()
         return jsonify({"success": "User added successfully!"}), 201

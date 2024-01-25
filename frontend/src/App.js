@@ -27,7 +27,8 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="/forgot-password" element={<PasswordForm />} />
         <Route path="listings" element={<PropertyListings />} />
-        <Route path="listings/:id" element={<PropertyDetails />} /> {/* Add this line */}
+        <Route path="listings/:id" element={<PropertyDetails />} /> 
+        <Route path="/add-property" element={<AddProperty />} />
 
       </Route>
       

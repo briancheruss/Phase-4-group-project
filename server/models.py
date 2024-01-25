@@ -31,12 +31,11 @@ class User(db.Model):
             password.encode('utf-8'))
         self._password_hash = password_hash.decode('utf-8')
 
-    def __init__(self, name, email, _password_hash):
+    def __init__(self, name, email, password):
         """Constructor for the User model."""
         self.name = name
         self.email = email
-        self._password_hash = _password_hash  # Use the correct attribute here
-
+        self.password_hash = bcrypt.generate_password_hash(password.encode('utf-8')).decode('utf-8')  # Use the correct attribute here
 
     def authenticate(self, password):
         """Check if the provided password matches the stored hash."""

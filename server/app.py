@@ -47,4 +47,4 @@ def token_in_blocklist_callback(jwt_header, jwt_data):
 
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5555, debug=True)

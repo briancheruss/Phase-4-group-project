@@ -18,7 +18,7 @@ export default function UserProvider({children})
     // add user
     function addUser(name,email, password)
     {
-        fetch("http://127.0.0.1:5000/users",{
+        fetch("http://127.0.0.1:5555/users",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -61,7 +61,7 @@ export default function UserProvider({children})
         // Update user
         function updateUser(name,email,)
         {
-            fetch("http://127.0.0.1:5000/users",{
+            fetch("http://127.0.0.1:5555/users",{
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -101,55 +101,46 @@ export default function UserProvider({children})
         }
     
     // login user
-    function login(name,password)
-    {
-        fetch("http://127.0.0.1:5000/login",{
+    function login(name, password) {
+        fetch("http://127.0.0.1:5555/login", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({name,password })
-
-        }
-        )
-        .then(res => res.json())
-        .then(response => {
-            
-            if (response.access_token)
-            {
-                sessionStorage.setItem("authToken", response.access_token);
-                setAuthToken(response.access_token)
-
-                navigate("/")
-                Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Login success",
-                showConfirmButton: false,
-                timer: 1500
-                });
-
-                setOnchange(!onchange)
-            }
-            else{
-                Swal.fire({
-                    position: "center",
-                    icon: "error",
-                    title: response.error,
-                    showConfirmButton: false,
-                    timer: 1500
-                    });
-            }
-
-
-
+            body: JSON.stringify({ name, password }),
         })
+            .then((res) => res.json())
+            .then((response) => {
+                if (response.access_token) {
+                    sessionStorage.setItem("authToken", response.access_token);
+                    setAuthToken(response.access_token);
+    
+                    navigate("/");
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Login success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+    
+                    setOnchange(!onchange);
+                } else {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: response.error,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            });
     }
 
         // DELETE  user account
         function delete_your_account()
         {
-            fetch("http://127.0.0.1:5000/users",{
+            fetch("http://127.0.0.1:5555/users",{
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -210,7 +201,7 @@ export default function UserProvider({children})
     useEffect(()=>{
         if(authToken)
         {
-            fetch("http://127.0.0.1:5000/authenticated_user",{
+            fetch("http://127.0.0.1:5555/authenticated_user",{
             method: "GET",
             headers: {
                 Accept: "application/json",
