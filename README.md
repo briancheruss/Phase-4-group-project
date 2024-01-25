@@ -23,7 +23,7 @@ By:
 
 ## Project Description
 
-For this project, we are going to collaborate on building a Full-Stack Property Management System.The system will be built using React JS for the front-end and Flask, a Python Framework for the back-end. This application also ulitises class attributes and methods in addition to Object-relational mapping with SQLALchemy.
+For this project, we are going to collaborate on building a Full-Stack Real Estate Management System.The system will be built using React JS for the front-end and Flask, a Python Framework for the back-end. This application also ulitises class attributes and methods in addition to Object-relational mapping with SQLALchemy.
 
 The system leverages SQLAlchemy ORM to interact with a well-structured database. It comprises of three interconnected tables:
 1. User: Store details of users, including username, email and password.
