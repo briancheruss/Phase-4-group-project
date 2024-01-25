@@ -2,6 +2,8 @@ from models import db, User
 from flask import request, jsonify, Blueprint
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import  jwt_required, get_jwt_identity
+from werkzeug.security import generate_password_hash
+
 
 bcrypt = Bcrypt()
 user_bp =Blueprint('user_bp', __name__)
@@ -10,7 +12,7 @@ user_bp =Blueprint('user_bp', __name__)
 @user_bp.route("/users", methods=["POST"])
 def add_users():
     data = request.get_json()
-    username = data['username']
+    name = data['name']
     email = data['email']
     _password_hash = bcrypt.generate_password_hash(data['password'])
 
@@ -21,7 +23,7 @@ def add_users():
         return jsonify({"error": "User email/name already exist!"})
 
     else:
-        new_user = User(email=email, password_hash=_password_hash, name=name)
+        new_user = User(name=name, email=email, _password_hash=_password_hash)
         db.session.add(new_user)
         db.session.commit()
         return jsonify({"success": "User added successfully!"}), 201

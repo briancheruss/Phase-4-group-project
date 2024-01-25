@@ -39,7 +39,7 @@ export default function UserProvider({children})
                 icon: "success",
                 title: response.success,
                 showConfirmButton: false,
-                timer: 1500
+                timer: 2000
                 });
                 setOnchange(!onchange)
             }
@@ -67,7 +67,7 @@ export default function UserProvider({children})
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${authToken}`
                 },
-                body: JSON.stringify({name,email, })
+                body: JSON.stringify({name,email,})
     
             }
             )
@@ -88,8 +88,8 @@ export default function UserProvider({children})
                 else{
                     Swal.fire({
                         position: "center",
-                        icon: "error",
-                        title: response.error,
+                        icon: "success",
+                        title: response.success,
                         showConfirmButton: false,
                         timer: 1500
                         });
@@ -120,7 +120,7 @@ export default function UserProvider({children})
                 sessionStorage.setItem("authToken", response.access_token);
                 setAuthToken(response.access_token)
 
-                navigate("/questions")
+                navigate("/")
                 Swal.fire({
                 position: "center",
                 icon: "success",
@@ -201,7 +201,7 @@ export default function UserProvider({children})
             icon: "success",
             title: "Logout success",
             showConfirmButton: false,
-            timer: 1000
+            timer: 1555
             });
 
     }

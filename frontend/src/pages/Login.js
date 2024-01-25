@@ -39,7 +39,7 @@ export default function LoginForm() {
             <Form.Control
               type="text"
               placeholder="Username"
-              name="username"
+              name="name"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required

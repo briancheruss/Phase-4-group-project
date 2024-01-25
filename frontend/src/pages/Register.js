@@ -27,7 +27,7 @@ export default function RegisterForm() {
     e.preventDefault();
 
     // call your useContext function
-    addUser(formData.username, formData.email, formData.password, formData.confirmPassword);
+    addUser(formData.name, formData.email, formData.password, formData.confirmPassword);
 
     // Clear your form
     setFormData({
@@ -57,8 +57,8 @@ export default function RegisterForm() {
             <Form.Control
               type="text"
               placeholder="Username"
-              name="username"
-              value={formData.username}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               required
             />
