@@ -7,30 +7,35 @@ from flask_jwt_extended import  jwt_required, get_jwt_identity
 review_bp = Blueprint('review_bp', __name__)
 
 
-# Create an review
+# Create a review
 @review_bp.route('/reviews', methods=['POST'])
-@jwt_required()
 def create_review():
-    data = request.json 
+    try:
+        data = request.json 
+        print("Received review data:", data)
 
-    new_review = Review(review_text=data['review_text'], rating=data['rating'], property_id=data['property_id'], user_id=get_jwt_identity())
+        new_review = Review(review_text=data['review_text'], rating=data.get('rating', 0), property_id=data['property_id'])
 
-    db.session.add(new_review)
-    db.session.commit()
+        db.session.add(new_review)
+        db.session.commit()
 
-    return jsonify({'message': 'Review created successfully'}), 201
+        return jsonify({'message': 'Review created successfully'}), 201
+    except Exception as e:
+        print("Error:", str(e))
+        return jsonify({'error': 'Failed to create review'}), 500
+
 
 
 
 # Get all reviews for a specific property
-@review_bp.route('/reviews/<int:review_id>', methods=['GET'])
+@review_bp.route('/reviews/<int:property_id>', methods=['GET'])
 def get_reviews_for_property(property_id):
     reviews = Review.query.filter_by(property_id=property_id).all()
 
     if not reviews:
-        return jsonify({'message': 'No reviews found for the specified house'}), 404
+        return jsonify({'message': 'No reviews found for the specified property'}), 404
 
-    review_list = [{'id': review.id, 'review': review.review_text,'rating': review.rating, "property_id":review.property_id,'user_id': review.user_id} for review in reviews]
+    review_list = [{'id': review.id, 'review': review.review_text, 'rating': review.rating, "property_id": review.property_id, 'user_id': review.user_id} for review in reviews]
 
     return jsonify({'reviews': review_list})
 
@@ -45,7 +50,7 @@ def update_review(review_id):
     if review:
         if review.user_id == get_jwt_identity():
             review.review_text = data['review_text']
-            review.rating=data["review.rating"]
+            review.rating = data["rating"]
             db.session.commit()
             return jsonify({'message': 'Review updated successfully'})
         
@@ -61,18 +66,18 @@ def update_review(review_id):
 
 # Delete an review
 @review_bp.route('/reviews/<int:review_id>', methods=['DELETE'])
-@jwt_required()
 def delete_review(review_id):
-    review = Review.query.get(review_id)
+    try:
+        review = Review.query.get(review_id)
+        print("Review to delete:", review_id)
 
-    if review:
-        if review.user_id == get_jwt_identity():
+        if review:
             db.session.delete(review)
             db.session.commit()
 
             return jsonify({'message': 'Review deleted successfully'})
         else:
-            return jsonify({"error": "You are trying to delete someone's review!"}), 404
-
-    else:
-        return jsonify({"error": "Review you are trying to delete is not found!"}), 404
+            return jsonify({"error": "Review not found"}), 404
+    except Exception as e:
+        print("Error:", str(e))
+        return jsonify({'error': 'Failed to delete review'}), 500

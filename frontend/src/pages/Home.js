@@ -1,9 +1,10 @@
-// Home.js
-import React,{ useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Carousel, Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import image3 from '../images/pexels-matthis-volquardsen-2179603.jpg'; 
 import 'aos/dist/aos.css';
-import AOS from 'aos'; // Import aos library
+import AOS from 'aos'; 
 
 function Home() {
   const carouselItemStyle = {
@@ -17,7 +18,7 @@ function Home() {
       duration: 1500, // Set the animation duration
       easing: 'ease-in-out', // Set the animation easing
     });
-  }, []); 
+  }, []);
 
   const textContainerStyle = {
     position: 'absolute',
@@ -29,9 +30,9 @@ function Home() {
   };
 
   return (
-    <Container fluid data-aos="fade-up">
+    <Container fluid data-aos="fade-up" className="p-0" style={{ marginTop: -16, marginLeft: -4 }}>
       <Row>
-        <Col>
+        <Col className="p-0">
           <Carousel>
             <Carousel.Item style={carouselItemStyle}>
               {/* Background image for the first slide */}
@@ -43,14 +44,19 @@ function Home() {
               <div style={textContainerStyle} data-aos="fade-up">
                 <h1 data-aos="fade-up">Welcome to Boma Homes</h1>
                 <p>Discover your dream home with us.</p>
-                <div data-aos="fade-up" >
-                  <Button variant="primary">Get Started</Button>{' '}
-                  <Button variant="outline-light">Explore Now</Button>
+                <div data-aos="fade-up">
+                  {/* Use Link to navigate to the register page */}
+                  <Link to="/register">
+                    <Button variant="primary">Get Started</Button>
+                  </Link>
+                  {' '}
+                  {/* Use Link to navigate to the property listings page */}
+                  <Link to="/listings">
+                    <Button variant="outline-light">Explore Now</Button>
+                  </Link>
                 </div>
-
               </div>
             </Carousel.Item>
-            {/* Add more Carousel.Items for additional slides with different images */}
             <Carousel.Item style={carouselItemStyle}>
               <img
                 className="d-block w-100"
@@ -60,39 +66,34 @@ function Home() {
               <div style={textContainerStyle}>
                 <h1>Welcome to Boma Homes</h1>
                 <p>Discover your dream home with us.</p>
-                <div >
-                  <Button variant="primary">Get Started</Button>{' '}
-                  <Button variant="outline-light">Explore Now</Button>
+                <div>
+                  <Link to="/register">
+                    <Button variant="primary">Get Started</Button>
+                  </Link>
+                  {' '}
+                  <Link to="/listings">
+                    <Button variant="outline-light">Explore Now</Button>
+                  </Link>
                 </div>
               </div>
             </Carousel.Item>
             <Carousel.Item style={carouselItemStyle}>
               <img
                 className="d-block w-100"
-                src="https://secure.365villas.com/getimage/uploads/config/relaxinnhomes/property/gallery/82/20230626_123840_3281jpg.jpg"
-                alt="Second slide"
+                src={image3}
+                alt="Third slide"
               />
               <div style={textContainerStyle}>
                 <h1>Welcome to Boma Homes</h1>
                 <p>Discover your dream home with us.</p>
-                <div >
-                  <Button variant="primary">Get Started</Button>{' '}
-                  <Button variant="outline-light">Explore Now</Button>
-                </div>
-              </div>
-            </Carousel.Item>
-            <Carousel.Item style={carouselItemStyle}>
-              <img
-                className="d-block w-100"
-                src="https://secure.365villas.com/getimage/uploads/config/relaxinnhomes/property/gallery/52/20220119_113448jpg.jpg"
-                alt="Second slide"
-              />
-              <div style={textContainerStyle}>
-                <h1>Welcome to Boma Homes</h1>
-                <p>Discover your dream home with us.</p>
-                <div >
-                  <Button variant="primary">Get Started</Button>{' '}
-                  <Button variant="outline-light">Explore Now</Button>
+                <div>
+                  <Link to="/register">
+                    <Button variant="primary">Get Started</Button>
+                  </Link>
+                  {' '}
+                  <Link to="/listings">
+                    <Button variant="outline-light">Explore Now</Button>
+                  </Link>
                 </div>
               </div>
             </Carousel.Item>

@@ -68,7 +68,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     review_text = db.Column(db.String, nullable=False)
     rating = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)  # Make user_id nullable
     property_id = db.Column(db.Integer, db.ForeignKey('property.id'), nullable=False)
 
     user = db.relationship('User', back_populates="reviews")

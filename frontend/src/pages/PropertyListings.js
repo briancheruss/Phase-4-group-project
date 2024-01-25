@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function PropertyListings() {
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get('search');
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await fetch('/property'); // Replace with your actual backend URL
+        const response = await fetch(`/property?search=${searchQuery}`);
         const data = await response.json();
         setProperties(data);
       } catch (error) {
@@ -17,7 +19,7 @@ function PropertyListings() {
     };
 
     fetchProperties();
-  }, []);
+  }, [searchQuery]);
 
   return (
     <div>
@@ -29,9 +31,9 @@ function PropertyListings() {
               <Card.Img
                 variant="top"
                 src={property.image}
-                style={{ height: '200px', objectFit: 'cover' }}
+                style={{ height: '200px', width: '100%', objectFit: 'cover' }}
               />
-              <Card.Body style={{ height: '200px' }}>
+              <Card.Body>
                 <Card.Title>{property.name}</Card.Title>
                 <Card.Text>
                   <strong>Address:</strong> {property.address}

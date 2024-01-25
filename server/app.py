@@ -22,11 +22,14 @@ migrate = Migrate(app, db)
 db.init_app(app)
 
 jwt = JWTManager()
-app.config["JWT_SECRET_KEY"] = "fjhjdjhfiskyfvdgvydklvsrfl"
+app.config["JWT_SECRET_KEY"] = "#scvijk_ltrpjkia"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2)
 jwt.init_app(app)
 
-
+@app.route("/")
+def landing_page():
+    return "<h1>WELCOME TO THE DATABASE</h1>"
+    
 app.register_blueprint(user_bp)
 app.register_blueprint(review_bp)
 app.register_blueprint(property_bp)
