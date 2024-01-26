@@ -78,13 +78,26 @@ def update_house(property_id):
 # Delete A House
 @property_bp.route('/property/<int:property_id>', methods=['DELETE'])
 def delete_property(property_id):
-    property = Property.query.get(property_id)
-    if property:
-        db.session.delete(property)
+    try:
+        property_to_delete = Property.query.get(property_id)
+
+        if not property_to_delete:
+            return jsonify({"error": "Property not found"}), 404
+
+        # Delete associated reviews
+        reviews_to_delete = Review.query.filter_by(property_id=property_id).all()
+
+        for review in reviews_to_delete:
+            db.session.delete(review)
+
+        # Delete the property
+        db.session.delete(property_to_delete)
         db.session.commit()
-        return jsonify({"success": "Deleted successfully!"}), 200
-    else:
-        return jsonify({"error": "House not found"}), 404
+
+        return jsonify({'message': 'Property deleted successfully'})
+    except Exception as e:
+        print("Error:", str(e))
+        return jsonify({'error': 'Failed to delete property'}), 500
 
 # Fetch all reviews related to a property
 @property_bp.route('/property_reviews/<int:property_id>')
