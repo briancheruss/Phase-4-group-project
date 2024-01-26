@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Container, Col } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
@@ -71,36 +71,45 @@ function AddProperty() {
     }
   };
 
-
   return (
-    <div>
+    <Container>
       <h2>Add Property</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="image">
-          <Form.Label>Image URL</Form.Label>
-          <Form.Control type="text" name="image" onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
-          <Form.Control type="text" name="name" onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="address">
-          <Form.Label>Address</Form.Label>
-          <Form.Control type="text" name="address" onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="price">
-          <Form.Label>Price</Form.Label>
-          <Form.Control type="text" name="price" onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" rows={3} name="description" onChange={handleChange} required />
-        </Form.Group>
+        <Col xs={12} md={6}>
+          <Form.Group controlId="image">
+            <Form.Label>Image URL</Form.Label>
+            <Form.Control type="text" name="image" onChange={handleChange} required />
+          </Form.Group>
+        </Col>
+        <Col xs={12} md={6}>
+          <Form.Group controlId="name">
+            <Form.Label>Name</Form.Label>
+            <Form.Control type="text" name="name" onChange={handleChange} required />
+          </Form.Group>
+        </Col>
+        <Col xs={12} md={6}>
+          <Form.Group controlId="address">
+            <Form.Label>Address</Form.Label>
+            <Form.Control type="text" name="address" onChange={handleChange} required />
+          </Form.Group>
+        </Col>
+        <Col xs={12} md={6}>
+          <Form.Group controlId="price">
+            <Form.Label>Price</Form.Label>
+            <Form.Control type="text" name="price" onChange={handleChange} required />
+          </Form.Group>
+        </Col>
+        <Col xs={12}>
+          <Form.Group controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control as="textarea" rows={3} name="description" onChange={handleChange} required />
+          </Form.Group>
+        </Col>
         <Button variant="primary" type="submit">
           Add Property
         </Button>
       </Form>
-    </div>
+    </Container>
   );
 }
 
