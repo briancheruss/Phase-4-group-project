@@ -18,7 +18,7 @@ export default function UserProvider({children})
     // add user
     function addUser(name,email, password)
     {
-        fetch("http://127.0.0.1:5555/users",{
+        fetch("https://boma-eoyo.onrender.com/users",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -61,7 +61,7 @@ export default function UserProvider({children})
         // Update user
         function updateUser(name,email,)
         {
-            fetch("http://127.0.0.1:5555/users",{
+            fetch("https://boma-eoyo.onrender.com/users",{
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export default function UserProvider({children})
     
     // login user
     function login(name, password) {
-        fetch("http://127.0.0.1:5555/login", {
+        fetch("https://boma-eoyo.onrender.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -140,7 +140,7 @@ export default function UserProvider({children})
         // DELETE  user account
         function delete_your_account()
         {
-            fetch("http://127.0.0.1:5555/users",{
+            fetch("https://boma-eoyo.onrender.com/users",{
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -201,7 +201,7 @@ export default function UserProvider({children})
     useEffect(()=>{
         if(authToken)
         {
-            fetch("http://127.0.0.1:5555/authenticated_user",{
+            fetch("https://boma-eoyo.onrender.com/authenticated_user",{
             method: "GET",
             headers: {
                 Accept: "application/json",
