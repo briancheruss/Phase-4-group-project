@@ -51,20 +51,17 @@ The Real Estate Management System provides a comprehensive solution for managing
 
 1. Retrieve their account details. i.e username, email.
 2. View all properties listed.
-3. Read reviews associated with a certain property.
-4. Retrieve details of a particuar property.
+3. Retrieve details of a particuar property.
 
 #### Update: 
 
 1. Update their account details.
 2. Update a particular property details.
-3. Update a review of a certain property.
 
 #### Delete: 
 
 1. Delete their account.
 2. Delete a particular property in the listings.
-3. Delete a review on a property.
 
 ### In addition to that, a user also can:
 
@@ -103,7 +100,7 @@ npm start
 
 ## Live link
 
-The Deployed Frontend can be accessed here [Frontend](https://moonlit-snickerdoodle-80bab2.netlify.app/)   
+The Deployed Frontend can be accessed here [Frontend](https://joyful-mandazi-6ea363.netlify.app/)   
 The Deployed Backend can also be accessed here [Server](https://real-estate-ue1j.onrender.com)
        
 ## Known Bugs
