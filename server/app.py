@@ -13,7 +13,7 @@ from models import db, User, Review, Property, TokenBlocklist
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://boma_homes_user:6h0qNSmUyX1LHh8aHCxVdnCbunzf6MVM@dpg-cmpu5aicn0vc73cq5tv0-a.oregon-postgres.render.com/boma_homes'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://realestate_c3nb_user:69VPkP6GkG4i9TCk1FeXMP3rY4fLttF7@dpg-cmq30heg1b2c73d3ekng-a.oregon-postgres.render.com/realestate_c3nb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 

@@ -26,10 +26,7 @@ class User(db.Model):
     @password_hash.setter
     def password_hash(self, password):
         """Setter for the password hash."""
-        # utf-8 encoding and decoding is required in Python 3
-        password_hash = bcrypt.generate_password_hash(
-            password.encode('utf-8'))
-        self._password_hash = password_hash.decode('utf-8')
+        self._password_hash = password
 
     def __init__(self, name, email, _password_hash):
         """Constructor for the User model."""
@@ -39,9 +36,11 @@ class User(db.Model):
 
 
     def authenticate(self, password):
-        """Check if the provided password matches the stored hash."""
+        print("Stored password hash length:", len(self._password_hash))
         return bcrypt.check_password_hash(
-            self._password_hash, password.encode('utf-8'))
+            self._password_hash.encode('utf-8'), password.encode('utf-8'))
+
+
 
     def __repr__(self):
         """Representation of the User object."""

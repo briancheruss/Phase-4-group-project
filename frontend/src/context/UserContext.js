@@ -18,7 +18,7 @@ export default function UserProvider({children})
     // add user
     function addUser(name,email, password)
     {
-        fetch("https://boma-eoyo.onrender.com/users",{
+        fetch("https://real-estate-ue1j.onrender.com/users",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -61,7 +61,7 @@ export default function UserProvider({children})
         // Update user
         function updateUser(name,email,)
         {
-            fetch("https://boma-eoyo.onrender.com/users",{
+            fetch("https://real-estate-ue1j.onrender.com/users",{
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export default function UserProvider({children})
     
     // login user
     function login(name, password) {
-        fetch("https://boma-eoyo.onrender.com/login", {
+        fetch("https://real-estate-ue1j.onrender.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -140,7 +140,7 @@ export default function UserProvider({children})
         // DELETE  user account
         function delete_your_account()
         {
-            fetch("https://boma-eoyo.onrender.com/users",{
+            fetch("https://real-estate-ue1j.onrender.com/users",{
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -201,7 +201,7 @@ export default function UserProvider({children})
     useEffect(()=>{
         if(authToken)
         {
-            fetch("https://boma-eoyo.onrender.com/authenticated_user",{
+            fetch("https://real-estate-ue1j.onrender.com/authenticated_user",{
             method: "GET",
             headers: {
                 Accept: "application/json",

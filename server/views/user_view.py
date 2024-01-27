@@ -14,20 +14,23 @@ def add_users():
     data = request.get_json()
     name = data['name']
     email = data['email']
-    _password_hash = bcrypt.generate_password_hash(data['password'])
+    password = data['password']
 
     check_name = User.query.filter_by(name=name).first()
     check_email = User.query.filter_by(email=email).first()
 
     if check_name or check_email:
-        return jsonify({"error": "User email/name already exist!"})
+        return jsonify({"error": "User email/name already exists!"})
 
     else:
-        new_user = User(name=name, email=email, _password_hash=_password_hash)
+        # Hash the password using Flask-Bcrypt
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+        new_user = User(name=name, email=email, _password_hash=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({"success": "User added successfully!"}), 201
 
+        return jsonify({"success": "User added successfully!"}), 201
 # fetch all users
 @user_bp.route("/users")
 def get_users():

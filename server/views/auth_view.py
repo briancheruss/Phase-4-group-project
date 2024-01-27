@@ -3,6 +3,8 @@ from flask import request, jsonify, Blueprint
 from werkzeug.security import check_password_hash
 from werkzeug.security import generate_password_hash  # Add this import
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
+from flask_bcrypt import Bcrypt
+
 
 auth_bp = Blueprint('auth_bp', __name__)
 
