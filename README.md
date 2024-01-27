@@ -1,14 +1,14 @@
 
 # Phase 4 Group-Project, 22/1/2024
 
-## REAL ESTATE MANAGEMENT APP/SYSTEM
+## REAL ESTATE MANAGEMENT APP/SYSTEM - BOMA HOMES
 
 ## Authors
 
 By:
-- Brian Cherus
-- Mark Mwangi
-- Arnold Juma
+- Brian Cherus(Scrum Master): Frontend 
+- Mark Mwangi : Frontend
+- Arnold Juma : Backend
 
 ## Table of Contents
 
@@ -81,7 +81,7 @@ The Real Estate Management System provides a comprehensive solution for managing
 ```sh
 npm install 
 ```
-5. To download the dependencies for the backend, run:
+5. To download the dependencies for the backend, on a different terminal, run:
 
 ```sh
 pipenv install && pipenv shell 
@@ -103,12 +103,14 @@ npm start
 
 ## Live link
 
-The Deployed Frontend can be accessed here [Frontend]   
-The Deployed Backend can also be accessed here [Backend]
+The Deployed Frontend can be accessed here [Frontend](https://moonlit-snickerdoodle-80bab2.netlify.app/)   
+The Deployed Backend can also be accessed here [Server](https://real-estate-ue1j.onrender.com)
        
 ## Known Bugs
 
-- The application runs smoothly. No detected bugs.
+- The application may delay in fetching property listings in addition to signing up / loging in due to render.
+  Otherwise, the app runs smoothly.
+
 
 ## Technologies used
 
