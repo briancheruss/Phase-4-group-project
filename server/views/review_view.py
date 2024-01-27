@@ -11,10 +11,14 @@ review_bp = Blueprint('review_bp', __name__)
 @review_bp.route('/reviews', methods=['POST'])
 def create_review():
     try:
-        data = request.json 
+        data = request.json
         print("Received review data:", data)
 
-        new_review = Review(review_text=data['review_text'], rating=data.get('rating', 0), property_id=data['property_id'])
+        new_review = Review(
+            review_text=data['review_text'],
+            rating=data.get('rating', 0),
+            property_id=data['property_id']
+        )
 
         db.session.add(new_review)
         db.session.commit()

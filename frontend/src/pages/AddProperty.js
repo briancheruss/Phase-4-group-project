@@ -35,7 +35,7 @@ function AddProperty() {
 
     try {
       // Make API call to add property
-      const response = await fetch('/add_property', {
+      const response = await fetch('https://real-estate-ue1j.onrender.com/add_property', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

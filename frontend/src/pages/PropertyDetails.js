@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 function PropertyDetails() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
-  const [newReview, setNewReview] = useState('');
   const [updatedProperty, setUpdatedProperty] = useState({
     name: '',
     address: '',
@@ -17,7 +16,7 @@ function PropertyDetails() {
   useEffect(() => {
     const fetchPropertyDetails = async () => {
       try {
-        const response = await fetch(`/property/${id}`);
+        const response = await fetch(`https://real-estate-ue1j.onrender.com/property/${id}`);
         const data = await response.json();
 
         if (data && data.length > 0) {
@@ -39,82 +38,10 @@ function PropertyDetails() {
     fetchPropertyDetails();
   }, [id]);
 
-  const handleAddReview = async () => {
-    try {
-      const response = await fetch('/reviews', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          review_text: newReview,
-          property_id: id,
-        }),
-      });
-
-      if (response.ok) {
-        const updatedResponse = await fetch(`/property/${id}`);
-        const updatedData = await updatedResponse.json();
-        setProperty(updatedData[0]);
-        setNewReview('');
-
-        // Show success message
-        Swal.fire({
-          title: 'Success!',
-          text: 'Review added successfully.',
-          icon: 'success',
-        });
-      } else {
-        console.error('Failed to add review:', response.statusText);
-        // Show error message
-        Swal.fire({
-          title: 'Error',
-          text: 'Failed to add review.',
-          icon: 'error',
-        });
-      }
-    } catch (error) {
-      console.error('Error adding review:', error);
-    }
-  };
-
-  const handleDeleteReview = async (reviewId) => {
-    try {
-      const response = await fetch(`/reviews/${reviewId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const updatedResponse = await fetch(`/property/${id}`);
-        const updatedData = await updatedResponse.json();
-        setProperty(updatedData[0]);
-
-        // Show success message
-        Swal.fire({
-          title: 'Success!',
-          text: 'Review deleted successfully.',
-          icon: 'success',
-        });
-      } else {
-        console.error('Failed to delete review:', response.statusText);
-        // Show error message
-        Swal.fire({
-          title: 'Error',
-          text: 'Failed to delete review.',
-          icon: 'error',
-        });
-      }
-    } catch (error) {
-      console.error('Error deleting review:', error);
-    }
-  };
 
   const handleUpdateProperty = async () => {
     try {
-      const response = await fetch(`/property/${id}`, {
+      const response = await fetch(`https://real-estate-ue1j.onrender.com/property/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -123,7 +50,7 @@ function PropertyDetails() {
       });
 
       if (response.ok) {
-        const updatedResponse = await fetch(`/property/${id}`);
+        const updatedResponse = await fetch(`https://real-estate-ue1j.onrender.com/property/${id}`);
         const updatedData = await updatedResponse.json();
         setProperty(updatedData[0]);
 
@@ -149,7 +76,7 @@ function PropertyDetails() {
 
   const handleDeleteProperty = async () => {
     try {
-      const response = await fetch(`/property/${id}`, {
+      const response = await fetch(`https://real-estate-ue1j.onrender.com/property/${id}`, {
         method: 'DELETE',
       });
 
@@ -193,51 +120,6 @@ function PropertyDetails() {
               <strong>Description:</strong> {property.description}
             </Card.Text>
 
-            {/* Add Review Form */}
-            <div style={{ ...formStyle, marginBottom: '20px', maxWidth: '600px' }}>
-              <h4>Add a Review</h4>
-              <Form>
-                <Col xs={12}>
-                  <Form.Group controlId="newReview">
-                    <Form.Control
-                      as="textarea"
-                      rows={3}
-                      value={newReview}
-                      onChange={(e) => setNewReview(e.target.value)}
-                    />
-                  </Form.Group>
-                </Col>
-                <Button variant="primary" style={{ ...formStyle, marginTop: '10px' }} onClick={handleAddReview}>
-                  Add Review
-                </Button>
-              </Form>
-            </div>
-
-            <Card.Title>Reviews</Card.Title>
-
-{property.reviews.length > 0 ? (
-  <Col xs={12}>
-    {property.reviews.map((review) => (
-      <Card key={review.id} style={{ marginBottom: '30px', maxWidth: '600px', marginLeft: 0 }}>
-        <Card.Body>
-          <Card.Text>
-            <strong>Review:</strong> {review.body}
-          </Card.Text>
-          <Button
-            variant="danger"
-            size="sm"
-            onClick={() => handleDeleteReview(review.id)}
-            style={{ marginLeft: '10px' }}
-          >
-            Delete Review
-          </Button>
-        </Card.Body>
-      </Card>
-    ))}
-  </Col>
-) : (
-  <p>No reviews available.</p>
-)}
 
             {/* Update Property Form */}
             <div style={{ ...formStyle, marginBottom: '20px', maxWidth: '600px' }}>
